@@ -1,0 +1,31 @@
+<div class="flex-container">
+  <form *ngIf="ticketsForm" [formGroup]="ticketsForm">
+    <input id="search" type="text" class="text search" placeholder="Search" formControlName="searchTerm">
+    <div class="float-container">
+      <div #inProgress class="ticketContainer" formArrayName="inProgress">
+        <h3>In progress:</h3>
+        <div *ngFor="let ticketIndex of inProgressFiltered; let i = index" [formGroupName]="i" class="ticket inProgress">
+          <input type="text" class="form-control text" placeholder="Title" formControlName="title">
+          <textarea type="textbox" class="form-control" placeholder="Description" formControlName="description"></textarea>
+          <div style="display: inline-block;">
+            <button (click)="markAsDone(ticketIndex)">Mark as done</button><button (click)="deleteTicket(ticketIndex, 'inProgress')" class="delete">Delete</button>
+          </div>
+        </div>
+        <div *ngIf="inProgressFiltered.length<1"></div>
+        <button (click)="addTicket()" class="add">Add ticket</button>
+      </div>
+
+      <div #done class="ticketContainer" formArrayName="done">
+        <h3>Done:</h3>
+        <div *ngFor="let ticketIndex of doneFiltered; let i = index" [formGroupName]="i" class="ticket done">
+          <input type="text" class="form-control text" placeholder="Title" formControlName="title">
+          <textarea type="textbox" class="form-control" placeholder="Description" formControlName="description"></textarea>
+          <div style="display: inline-block;">
+            <button (click)="moveToInProgress(ticketIndex)">Move to in progress</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</div>
