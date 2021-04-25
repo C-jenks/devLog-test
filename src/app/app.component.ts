@@ -32,7 +32,7 @@ export class AppComponent implements OnInit {
 
   onChanges(): void {
     this.ticketsForm.get('searchTerm').valueChanges.subscribe(val => {
-      this.filterTickets(val)
+      this.filterTickets()
     });
   }
 
@@ -122,29 +122,17 @@ export class AppComponent implements OnInit {
     this.filterTickets();
   }
 
-  filterTickets(val=''): void {
+  filterTickets(): void {
     this.inProgressFiltered = []
     this.doneFiltered = []
-
-    if(val!=''){
+    if(this.ticketsForm.get("searchTerm").value!=''){
       for (let i = 0; i < this.ticketsForm.value.inProgress.length; i++) {
-        if(this.ticketsForm.value.inProgress[i].title.toLowerCase().includes(val.toLowerCase())){
+        if(this.ticketsForm.value.inProgress[i].title.toLowerCase().includes(this.ticketsForm.get("searchTerm").value.toLowerCase())){
           this.inProgressFiltered.push(i)
         }
       }
       for (let i = 0; i < this.ticketsForm.value.done.length; i++) {
-        if(this.ticketsForm.value.done[i].title.toLowerCase().includes(val.toLowerCase())){
-          this.doneFiltered.push(i)
-        }
-      }
-    }else if(this.ticketsForm.value.searchTerm!=''){
-      for (let i = 0; i < this.ticketsForm.value.inProgress.length; i++) {
-        if(this.ticketsForm.value.inProgress[i].title.toLowerCase().includes(this.ticketsForm.value.searchTerm.toLowerCase())){
-          this.inProgressFiltered.push(i)
-        }
-      }
-      for (let i = 0; i < this.ticketsForm.value.done.length; i++) {
-        if(this.ticketsForm.value.done[i].title.toLowerCase().includes(this.ticketsForm.value.searchTerm.toLowerCase())){
+        if(this.ticketsForm.value.done[i].title.toLowerCase().includes(this.ticketsForm.get("searchTerm").value.toLowerCase())){
           this.doneFiltered.push(i)
         }
       }
