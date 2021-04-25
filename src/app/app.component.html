@@ -11,7 +11,6 @@
             <button (click)="markAsDone(ticketIndex)">Mark as done</button><button (click)="deleteTicket(ticketIndex, 'inProgress')" class="delete">Delete</button>
           </div>
         </div>
-        <div *ngIf="inProgressFiltered.length<1"></div>
         <button (click)="addTicket()" class="add">Add ticket</button>
       </div>
 
